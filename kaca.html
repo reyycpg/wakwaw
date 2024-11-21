@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hitung Harga Kaca</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            width: 60%;
+            margin: 50px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        label {
+            margin-top: 10px;
+            display: block;
+            font-size: 16px;
+        }
+        select, input {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Hitung Harga Kaca</h2>
+    
+    <label for="jenisKaca">Pilih Jenis Kaca:</label>
+    <select id="jenisKaca">
+        <option value="polos">Kaca Polos</option>
+        <option value="panasap">Kaca Panasap Ryben</option>
+        <option value="es">Kaca Es</option>
+    </select>
+
+    <label for="ketebalanKaca">Pilih Ketebalan Kaca (mm):</label>
+    <select id="ketebalanKaca">
+        <option value="5">5 mm</option>
+        <option value="6">6 mm</option>
+        <option value="8">8 mm</option>
+        <option value="10">10 mm</option>
+        <option value="12">12 mm</option>
+    </select>
+
+    <label for="panjang">Panjang (m):</label>
+    <!-- Menambahkan step="any" agar panjang dapat menerima bilangan desimal -->
+    <input type="number" id="panjang" placeholder="Masukkan panjang kaca (m)" step="any" />
+
+    <label for="lebar">Lebar (m):</label>
+    <!-- Menambahkan step="any" agar lebar dapat menerima bilangan desimal -->
+    <input type="number" id="lebar" placeholder="Masukkan lebar kaca (m)" step="any" />
+
+    <button onclick="hitungHarga()">Hitung Harga</button>
+
+    <div id="result" class="result"></div>
+</div>
+
+<script>
+    // Harga per meter untuk setiap jenis kaca dan ketebalan
+    const hargaKaca = {
+        polos: {
+            5: 130000,
+            6: 180000,
+            8: 250000,
+            10: 350000,
+            12: 380000
+        },
+        panasap: {
+            5: 150000,
+            6: 200000,
+            8: 280000,
+            12: 520000
+        },
+        es: {
+            5: 200000
+        }
+    };
+
+    function hitungHarga() {
+        // Mengambil input dari pengguna
+        const jenisKaca = document.getElementById('jenisKaca').value;
+        const ketebalanKaca = parseInt(document.getElementById('ketebalanKaca').value);
+        const panjang = parseFloat(document.getElementById('panjang').value);
+        const lebar = parseFloat(document.getElementById('lebar').value);
+
+        // Validasi input
+        if (!panjang || !lebar || panjang <= 0 || lebar <= 0) {
+            alert('Panjang dan lebar harus diisi dengan angka positif.');
+            return;
+        }
+
+        // Menghitung harga per meter berdasarkan jenis kaca dan ketebalan
+        const hargaPerMeter = hargaKaca[jenisKaca][ketebalanKaca];
+
+        // Menghitung total harga
+        const totalHarga = (panjang * lebar) * hargaPerMeter;
+
+        // Menampilkan hasil perhitungan
+        document.getElementById('result').innerHTML = `Total Harga: Rp ${totalHarga.toLocaleString()}`;
+    }
+</script>
+<button onclick="window.location.href='hitung.html'">balik</button>
+
+</body>
+</html>

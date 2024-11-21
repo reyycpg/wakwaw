@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hitung Harga Kusen, Spandrell, ACP, Jendela, dan Pintu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-size: 16px;
+            color: #333;
+            margin-right: 10px;
+        }
+        input[type="text"] {
+            padding: 8px;
+            font-size: 14px;
+            width: 100px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 18px;
+        }
+        .result h2 {
+            margin-top: 0;
+        }
+        .checkbox-label {
+            font-size: 14px;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hitung Harga Kusen, Spandrell, ACP, Jendela, dan Pintu</h1>
+
+        <!-- Input untuk Kusen -->
+        <div>
+            <h2>Kusen</h2>
+            <label for="panjangKusen">Panjang (meter):</label>
+            <input type="text" id="panjangKusen" placeholder="Panjang Kusen" required>
+
+            <label for="lebarKusen">Lebar (meter):</label>
+            <input type="text" id="lebarKusen" placeholder="Lebar Kusen" required>
+
+            <label for="alexindoKusen">
+                <input type="checkbox" id="alexindoKusen"> Menggunakan Alexindo (Tambahkan 10%)
+                <span class="checkbox-label">(+10%)</span>
+            </label>
+
+            <button class="btn" onclick="hitungHargaKusen()">Hitung Harga Kusen</button>
+            <div class="result" id="hasilKusen" style="display: none;">
+                <p id="totalHargaKusen">Total Harga Kusen: </p>
+            </div>
+        </div>
+
+        <!-- Input untuk Spandrell -->
+        <div>
+            <h2>Spandrell</h2>
+            <label for="panjangSpandrell">Panjang (meter):</label>
+            <input type="text" id="panjangSpandrell" placeholder="Panjang Spandrell" required>
+
+            <label for="lebarSpandrell">Lebar (meter):</label>
+            <input type="text" id="lebarSpandrell" placeholder="Lebar Spandrell" required>
+
+            <label for="alexindoSpandrell">
+                <input type="checkbox" id="alexindoSpandrell"> Menggunakan Alexindo (Tambahkan 10%)
+                <span class="checkbox-label">(+10%)</span>
+            </label>
+
+            <button class="btn" onclick="hitungHargaSpandrell()">Hitung Harga Spandrell</button>
+            <div class="result" id="hasilSpandrell" style="display: none;">
+                <p id="totalHargaSpandrell">Total Harga Spandrell: </p>
+            </div>
+        </div>
+
+        <!-- Input untuk ACP -->
+        <div>
+            <h2>Panel ACP</h2>
+            <label for="panjangACP">Panjang (meter):</label>
+            <input type="text" id="panjangACP" placeholder="Panjang ACP" required>
+
+            <label for="lebarACP">Lebar (meter):</label>
+            <input type="text" id="lebarACP" placeholder="Lebar ACP" required>
+
+            <label for="alexindoACP">
+                <input type="checkbox" id="alexindoACP"> Menggunakan Alexindo (Tambahkan 10%)
+                <span class="checkbox-label">(+10%)</span>
+            </label>
+
+            <button class="btn" onclick="hitungHargaACP()">Hitung Harga ACP</button>
+            <div class="result" id="hasilACP" style="display: none;">
+                <p id="totalHargaACP">Total Harga ACP: </p>
+            </div>
+        </div>
+
+        <!-- Input untuk Jendela Biasa -->
+        <div>
+            <h2>Jendela Biasa</h2>
+            <label for="panjangJendela">Panjang (meter):</label>
+            <input type="text" id="panjangJendela" placeholder="Panjang Jendela" required>
+
+            <label for="lebarJendela">Lebar (meter):</label>
+            <input type="text" id="lebarJendela" placeholder="Lebar Jendela" required>
+
+            <label for="alexindoJendela">
+                <input type="checkbox" id="alexindoJendela"> Menggunakan Alexindo (Tambahkan 10%)
+                <span class="checkbox-label">(+10%)</span>
+            </label>
+
+            <button class="btn" onclick="hitungHargaJendela()">Hitung Harga Jendela</button>
+            <div class="result" id="hasilJendela" style="display: none;">
+                <p id="totalHargaJendela">Total Harga Jendela: </p>
+            </div>
+        </div>
+
+        <!-- Input untuk Pintu Sliding -->
+        <div>
+            <h2>Pintu Sliding</h2>
+            <label for="panjangPintu">Panjang (meter):</label>
+            <input type="text" id="panjangPintu" placeholder="Panjang Pintu Sliding" required>
+
+            <label for="lebarPintu">Lebar (meter):</label>
+            <input type="text" id="lebarPintu" placeholder="Lebar Pintu Sliding" required>
+
+            <label for="alexindoPintu">
+                <input type="checkbox" id="alexindoPintu"> Menggunakan Alexindo (Tambahkan 10%)
+                <span class="checkbox-label">(+10%)</span>
+            </label>
+
+            <button class="btn" onclick="hitungHargaPintu()">Hitung Harga Pintu Sliding</button>
+            <div class="result" id="hasilPintu" style="display: none;">
+                <p id="totalHargaPintu">Total Harga Pintu Sliding: </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Harga per meter untuk berbagai komponen
+        const hargaKusenPerMeter = 425000;
+        const hargaSpandrellPerMeter = 500000;
+        const hargaACPPerMeter = 500000;
+        const hargaJendelaPerMeter = 335000;
+        const hargaPintuPerMeter = 450000;
+
+        // Fungsi untuk menghitung harga Kusen
+        function hitungHargaKusen() {
+            let panjangKusen = document.getElementById('panjangKusen').value;
+            let lebarKusen = document.getElementById('lebarKusen').value;
+            let alexindoKusen = document.getElementById('alexindoKusen').checked;
+
+            panjangKusen = panjangKusen.replace(',', '.');
+            lebarKusen = lebarKusen.replace(',', '.');
+
+            panjangKusen = parseFloat(panjangKusen);
+            lebarKusen = parseFloat(lebarKusen);
+
+            if (isNaN(panjangKusen) || isNaN(lebarKusen) || panjangKusen <= 0 || lebarKusen <= 0) {
+                alert("Harap masukkan panjang dan lebar yang valid untuk kusen!");
+                return;
+            }
+
+            const totalMeterKusen = (panjangKusen + lebarKusen) * 2;
+            let hargaKusen = totalMeterKusen * hargaKusenPerMeter;
+
+            // Jika menggunakan Alexindo, tambah 10% pada harga
+            if (alexindoKusen) {
+                hargaKusen *= 1.1;
+            }
+
+            document.getElementById('hasilKusen').style.display = 'block';
+            document.getElementById('totalHargaKusen').innerText = `Total Harga Kusen: Rp ${hargaKusen.toLocaleString()}`;
+        }
+
+        // Fungsi untuk menghitung harga Spandrell
+        function hitungHargaSpandrell() {
+            let panjangSpandrell = document.getElementById('panjangSpandrell').value;
+            let lebarSpandrell = document.getElementById('lebarSpandrell').value;
+            let alexindoSpandrell = document.getElementById('alexindoSpandrell').checked;
+
+            panjangSpandrell = panjangSpandrell.replace(',', '.');
+            lebarSpandrell = lebarSpandrell.replace(',', '.');
+
+            panjangSpandrell = parseFloat(panjangSpandrell);
+            lebarSpandrell = parseFloat(lebarSpandrell);
+
+            if (isNaN(panjangSpandrell) || isNaN(lebarSpandrell) || panjangSpandrell <= 0 || lebarSpandrell <= 0) {
+                alert("Harap masukkan panjang dan lebar yang valid untuk spandrell!");
+                return;
+            }
+
+            const totalMeterSpandrell = (panjangSpandrell + lebarSpandrell) * 2;
+            let hargaSpandrell = totalMeterSpandrell * hargaSpandrellPerMeter;
+
+            // Jika menggunakan Alexindo, tambah 10% pada harga
+            if (alexindoSpandrell) {
+                hargaSpandrell *= 1.1;
+            }
+
+            document.getElementById('hasilSpandrell').style.display = 'block';
+            document.getElementById('totalHargaSpandrell').innerText = `Total Harga Spandrell: Rp ${hargaSpandrell.toLocaleString()}`;
+        }
+
+        // Fungsi untuk menghitung harga ACP
+        function hitungHargaACP() {
+            let panjangACP = document.getElementById('panjangACP').value;
+            let lebarACP = document.getElementById('lebarACP').value;
+            let alexindoACP = document.getElementById('alexindoACP').checked;
+
+            panjangACP = panjangACP.replace(',', '.');
+            lebarACP = lebarACP.replace(',', '.');
+
+            panjangACP = parseFloat(panjangACP);
+            lebarACP = parseFloat(lebarACP);
+
+            if (isNaN(panjangACP) || isNaN(lebarACP) || panjangACP <= 0 || lebarACP <= 0) {
+                alert("Harap masukkan panjang dan lebar yang valid untuk ACP!");
+                return;
+            }
+
+            const totalMeterACP = (panjangACP + lebarACP) * 2;
+            let hargaACP = totalMeterACP * hargaACPPerMeter;
+
+            // Jika menggunakan Alexindo, tambah 10% pada harga
+            if (alexindoACP) {
+                hargaACP *= 1.1;
+            }
+
+            document.getElementById('hasilACP').style.display = 'block';
+            document.getElementById('totalHargaACP').innerText = `Total Harga ACP: Rp ${hargaACP.toLocaleString()}`;
+        }
+
+        // Fungsi untuk menghitung harga Jendela
+        function hitungHargaJendela() {
+            let panjangJendela = document.getElementById('panjangJendela').value;
+            let lebarJendela = document.getElementById('lebarJendela').value;
+            let alexindoJendela = document.getElementById('alexindoJendela').checked;
+
+            panjangJendela = panjangJendela.replace(',', '.');
+            lebarJendela = lebarJendela.replace(',', '.');
+
+            panjangJendela = parseFloat(panjangJendela);
+            lebarJendela = parseFloat(lebarJendela);
+
+            if (isNaN(panjangJendela) || isNaN(lebarJendela) || panjangJendela <= 0 || lebarJendela <= 0) {
+                alert("Harap masukkan panjang dan lebar yang valid untuk jendela!");
+                return;
+            }
+
+            const totalMeterJendela = (panjangJendela + lebarJendela) * 2;
+            let hargaJendela = totalMeterJendela * hargaJendelaPerMeter;
+
+            // Jika menggunakan Alexindo, tambah 10% pada harga
+            if (alexindoJendela) {
+                hargaJendela *= 1.1;
+            }
+
+            document.getElementById('hasilJendela').style.display = 'block';
+            document.getElementById('totalHargaJendela').innerText = `Total Harga Jendela: Rp ${hargaJendela.toLocaleString()}`;
+        }
+
+        // Fungsi untuk menghitung harga Pintu Sliding
+        function hitungHargaPintu() {
+            let panjangPintu = document.getElementById('panjangPintu').value;
+            let lebarPintu = document.getElementById('lebarPintu').value;
+            let alexindoPintu = document.getElementById('alexindoPintu').checked;
+
+            panjangPintu = panjangPintu.replace(',', '.');
+            lebarPintu = lebarPintu.replace(',', '.');
+
+            panjangPintu = parseFloat(panjangPintu);
+            lebarPintu = parseFloat(lebarPintu);
+
+            if (isNaN(panjangPintu) || isNaN(lebarPintu) || panjangPintu <= 0 || lebarPintu <= 0) {
+                alert("Harap masukkan panjang dan lebar yang valid untuk pintu sliding!");
+                return;
+            }
+
+            const totalMeterPintu = (panjangPintu + lebarPintu) * 2;
+            let hargaPintu = totalMeterPintu * hargaPintuPerMeter;
+
+            // Jika menggunakan Alexindo, tambah 10% pada harga
+            if (alexindoPintu) {
+                hargaPintu *= 1.1;
+            }
+
+            document.getElementById('hasilPintu').style.display = 'block';
+            document.getElementById('totalHargaPintu').innerText = `Total Harga Pintu Sliding: Rp ${hargaPintu.toLocaleString()}`;
+        }
+    </script>
+    <!-- Di bawah button Hitung Harga -->
+<button onclick="window.location.href='kaca.html'">kaca</button>
+
+    
+</body>
+</html>
